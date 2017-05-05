@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  div(ng-controller='homeCtrl')
+    h1=title
+    p Welcome to #{title}
+    p Say hi to my friend {{ friend }}.
+    input(type='text', ng-model='friend')
