@@ -2,8 +2,32 @@ doctype html
 html
   head
     title=title
-    link(rel='stylesheet', href='/css/style.css')
+    link(rel='stylesheet', href='/css/lib.css')
+    link(rel='stylesheet', href='/css/site.css')
     script(type='text/javascript', src='/js/lib.js')
-    script(type='text/javascript', src='/js/brew-test.js')
+    script(type='text/javascript', src='/js/brewtest.js')
   body(ng-app='brewtest')
-    block content
+    nav.navbar.navbar-default
+      .container
+        .navbar-header
+          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+            span.sr-only Toggle navigation 
+            span.icon-bar 
+            span.icon-bar
+            span.icon-bar
+        #navbar.navbar-collapse.collapse
+          ul.nav.navbar-nav
+            li
+              a.navbar-brand(href='/') Brew Monitor
+            li
+              a(href='/') Current Brew
+            li
+              a(href='/history') Brew History
+            li
+              a(href='#contact') Contact
+    .container
+      block content
+    .container
+      .footer
+        hr
+        p &copy; thebellthorpe 2017

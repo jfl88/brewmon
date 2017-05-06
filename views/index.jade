@@ -1,8 +1,14 @@
 extends layout
 
 block content
-  div(ng-controller='homeCtrl')
-    h1=title
-    p Welcome to #{title}
-    p Say hi to my friend {{ friend }}.
-    input(type='text', ng-model='friend')
+  div(ng-controller='homeCtrl', class='container')
+    .page-header
+      h1=title
+    .row
+      p Welcome to #{title}
+      p
+        label Current Brew:
+      p
+        label Stage: 
+    .row
+      nvd3(options='chartOptions', data='chartData')
