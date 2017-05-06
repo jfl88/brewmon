@@ -4,6 +4,6 @@ var brewtest = angular.module('brewtest', []);
 
 brewtest.controller('homeCtrl', ['$scope',
     function ($scope) {
-        $scope.friend = 'poo';
+        $scope.friend = 'alfred';
     }
 ]);
