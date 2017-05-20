@@ -2,8 +2,8 @@
 
 var brewtest = angular.module('brewtest', ['nvd3']);
 
-brewtest.controller('homeCtrl', ['$scope','$interval',
-    function ($scope, $interval) {
+brewtest.controller('homeCtrl', ['$scope','$interval', '$http',
+    function ($scope, $interval, $http) {
         $scope.friend = 'alfred';
 
         $scope.chartOptions = {
@@ -20,7 +20,7 @@ brewtest.controller('homeCtrl', ['$scope','$interval',
                 dispatch: {},
                 xAxis: {
                     tickFormat: function(d) {
-                        return d3.time.format('%H:%M:%S')(new Date(d));
+                        return d3.time.format('%d-%m-%Y %H:%M:%S')(new Date(d));
                     },
                     axisLabel: "Timestamp"
                 },
@@ -36,22 +36,35 @@ brewtest.controller('homeCtrl', ['$scope','$interval',
             }
         };
 
-        $scope.chartData = [
-            {
-                values: [{
-                    x: new Date(),
-                    y: Math.random() * 2 + 15
-                }],
-                key: 'Temp'
-            }
-        ];
+        $http.get('/api/temps').then(function success(resp) {
+            console.log(resp.data);
+            
+            console.log(resp.data[0]);
 
-        $interval(function () {
-            $scope.chartData[0].values.push({
-                        x: new Date(),
-                        y: Math.random() * 2 + 15
-                    });
-            console.log($scope.chartData);
-        }, 1000);
+            $scope.chartData = [
+                {
+                    values: [{
+                        x: new Date(resp.data[0].timestamp),
+                        y: resp.data[0].temp
+                    }],
+                    key: 'Temp'
+                }
+            ];
+            
+            resp.data.forEach(function(record) {
+                $scope.chartData[0].values.push({
+                    x: new Date(record.timestamp),
+                    y: record.temp
+                });
+            });
+        });
+
+        // $interval(function () {
+        //     $scope.chartData[0].values.push({
+        //                 x: new Date(),
+        //                 y: Math.random() * 2 + 15
+        //             });
+        //     console.log($scope.chartData);
+        // }, 1000);
     }
 ]);
