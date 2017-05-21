@@ -7,8 +7,13 @@ block content
     .row
       p Welcome to #{title}
       p
-        label Current Brew:
+        label Current Brew:&nbsp
+        a(href='https://www.brewersfriend.com/homebrew/recipe/view/492749/first-crack-pseudo-lager-') Pseudo Lager
       p
-        label Stage: 
+        label Stage:
+        &nbspFermentation
+      p
+        label Last Recorded Temp:
+        &nbsp{{ chartData[0].values[chartData[0].values.length - 1].y }} at {{ chartData[0].values[chartData[0].values.length - 1].x.toString() }}
     .row
       nvd3(options='chartOptions', data='chartData')
