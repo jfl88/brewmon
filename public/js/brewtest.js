@@ -28,7 +28,7 @@ brewtest.controller('homeCtrl', ['$scope','$interval', '$http',
                     axisLabel: "Temperature (°C)",
                     axisLabelDistance: -10
                 },
-                yDomain: [18,23],
+                yDomain: [14,23],
                 x2Axis: {
                     tickFormat: function(d) {
                         return d3.time.format('%d-%m-%Y')(new Date(d));
