@@ -28,7 +28,6 @@ brewtest.controller('homeCtrl', ['$scope','$interval', '$http',
                     axisLabel: "Temperature (°C)",
                     axisLabelDistance: -10
                 },
-                yDomain: [14,23],
                 x2Axis: {
                     tickFormat: function(d) {
                         return d3.time.format('%d-%m-%Y')(new Date(d));
@@ -67,10 +66,6 @@ brewtest.controller('homeCtrl', ['$scope','$interval', '$http',
         };
 
         $http.get('/api/temps').then(function success(resp) {
-            console.log(resp.data);
-            
-            console.log(resp.data[0]);
-
             $scope.chartData = [
                 {
                     values: [{
@@ -87,14 +82,8 @@ brewtest.controller('homeCtrl', ['$scope','$interval', '$http',
                     y: record.temp
                 });
             });
-        });
 
-        // $interval(function () {
-        //     $scope.chartData[0].values.push({
-        //                 x: new Date(),
-        //                 y: Math.random() * 2 + 15
-        //             });
-        //     console.log($scope.chartData);
-        // }, 1000);
+            console.log('min' + d3.min($scope.chartData[0].values, function (d){ return d.y; }));
+        });
     }
 ]);
