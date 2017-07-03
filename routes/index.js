@@ -15,7 +15,11 @@ router.get('/', function(req, res, next) {
 router.route('/api/temps')
   .get(function(req, res, next) {
     MongoClient.connect(url, function(err, db){
-      db.collection('temps').find({}).toArray(function(err, docs) {
+      var today = new Date();
+      
+      db.collection('temps')
+      .find({ timestamp: { $gt : new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7) } })
+      .toArray(function(err, docs) {
         assert.equal(err, null);
         console.log("Found the following records");
         console.dir(docs)
