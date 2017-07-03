@@ -66,18 +66,20 @@
                 }
             };
 
-            $http.get('/api/temps').then(function success(resp) {
+            $http.get('/api/brews').then(function success(resp) {
+                $scope.currentBrew = resp.data[0];
+
                 $scope.chartData = [
                     {
                         values: [{
-                            x: new Date(resp.data[0].timestamp),
-                            y: resp.data[0].temp
+                            x: new Date($scope.currentBrew.tempData[0].timestamp),
+                            y: $scope.currentBrew.tempData[0].temp
                         }],
                         key: 'Temp'
                     }
                 ];
                 
-                resp.data.forEach(function(record) {
+                $scope.currentBrew.tempData.forEach(function(record) {
                     $scope.chartData[0].values.push({
                         x: new Date(record.timestamp),
                         y: record.temp
