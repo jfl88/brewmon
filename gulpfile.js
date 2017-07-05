@@ -8,7 +8,9 @@ var scriptPaths = [
   'bower_components/angular/angular.min.js',
   'bower_components/d3/d3.min.js',
   'bower_components/nvd3/build/nv.d3.min.js',
-  'bower_components/angular-nvd3/dist/angular-nvd3.min.js'];
+  'bower_components/angular-nvd3/dist/angular-nvd3.min.js',
+  'bower_components/socket.io-client/dist/socket.io.js'
+];
 
 var stylePaths = [
   'bower_components/bootstrap/dist/css/bootstrap.min.css',

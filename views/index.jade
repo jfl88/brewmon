@@ -15,5 +15,8 @@ block content
       p
         label Last Recorded Temp:
         &nbsp{{ chartData[0].values[chartData[0].values.length - 1].y }} at {{ chartData[0].values[chartData[0].values.length - 1].x.toString() }}
+      p
+        label Live Temp:
+        &nbsp{{ liveTemp }}
     .row
       nvd3(options='chartOptions', data='chartData')

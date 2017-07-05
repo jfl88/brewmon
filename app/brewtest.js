@@ -88,6 +88,20 @@
 
                 console.log('min' + d3.min($scope.chartData[0].values, function (d){ return d.y; }));
             });
+
+          $scope.liveTemp = 0.0;
+
+          var socket = io('http://columbianpow.asuscomm.com:3001');
+
+          socket.on('connect', function () { console.log('connected!'); });
+          socket.on('liveTemp', function(data) { 
+            console.log('received: ' + data.toString());
+
+            $scope.$apply(function () {
+              $scope.liveTemp = data.temp;
+            });
+          });
+
         }
     ]);
 })();
