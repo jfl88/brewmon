@@ -17,7 +17,14 @@
                 var layout = {
                     showlegend: false,
                     xaxis: { title: 'Date / Time' },
-                    yaxis: { title: 'Temperature (°C)', nticks: 10 }
+                    yaxis: { title: 'Temperature (°C)', nticks: 10 },
+                    margin: {
+                        l: 50,
+                        r: 50,
+                        b: 50,
+                        t: 50,
+                        pad: 4
+                    }
                 };
 
                 $scope.currentBrew.tempData.forEach(function(record) {
