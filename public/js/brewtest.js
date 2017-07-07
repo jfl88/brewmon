@@ -15,7 +15,6 @@
                 }];
 
                 var layout = {
-                    title: 'Brew Temperature',
                     showlegend: false,
                     xaxis: { title: 'Date / Time' },
                     yaxis: { title: 'Temperature (°C)', nticks: 10 }
