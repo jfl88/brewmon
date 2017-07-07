@@ -28,8 +28,10 @@
                 };
 
                 $scope.currentBrew.tempData.forEach(function(record) {
-                    $scope.brewData[0].x.push(new Date(record.timestamp));
-                    $scope.brewData[0].y.push(record.temp)
+                    if (new Date(record.timestamp) > new Date(new Date().getTime() - (24 * 60 * 60 * 1000))) {
+                        $scope.brewData[0].x.push(new Date(record.timestamp));
+                        $scope.brewData[0].y.push(record.temp);
+                    }
                 });
 
                 Plotly.newPlot('brewGraph', $scope.brewData, layout, { displaylogo: false });
