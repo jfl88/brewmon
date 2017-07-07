@@ -39,7 +39,7 @@
 
           $scope.liveTemp = 0.0;
 
-          var socket = io('http://columbianpow.asuscomm.com:3001');
+          var socket = io('//columbianpow.asuscomm.com:3001');
 
           socket.on('connect', function () { console.log('connected!'); });
           socket.on('liveTemp', function(data) { 
