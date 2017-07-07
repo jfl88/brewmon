@@ -18,7 +18,7 @@
                     title: 'Brew Temperature',
                     showlegend: false,
                     xaxis: { title: 'Date / Time' },
-                    yaxis: { title: 'Temperature (°C)' }
+                    yaxis: { title: 'Temperature (°C)', nticks: 10 }
                 };
 
                 $scope.currentBrew.tempData.forEach(function(record) {
