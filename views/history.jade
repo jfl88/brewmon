@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  div(ng-controller='homeCtrl', class='container')
+    .row
+      .col-md-12
+        h2=title
+        hr
+    .row
+      .col-sm-9.col-md-6
+        .panel.panel-default
+          .panel-heading
+            label Welcome to #{title}
+          .panel-body
+            p
+              label Current Brew:&nbsp
+              a(href='{{ currentBrew.recipeUrl }}') {{ currentBrew.name }}
+            p
+              label Stage:
+              &nbspFermentation (started {{ currentBrew.startDT | date }})

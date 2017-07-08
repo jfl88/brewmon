@@ -5,7 +5,7 @@
         .module('brewtest', ['nvd3'])
         .controller('homeCtrl', ['$scope','$interval', '$http',
         function ($scope, $interval, $http) {
-            $http.get('/api/brews').then(function success(resp) {
+            $http.get('/api/brews/?complete=false').then(function success(resp) {
                 $scope.currentBrew = resp.data[0];
                 
                 $scope.brewData = [{
