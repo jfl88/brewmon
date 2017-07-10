@@ -7,7 +7,7 @@ block content
         h2=title
         hr
     for brew in brews    
-      .row
+      .row(name=brew._id)
         .col-sm-12
           .panel.panel-default
             .panel-heading
@@ -19,3 +19,4 @@ block content
               p
                 label Stage:
                 &nbspFermentation (started #{brew.startDT})
+              div(id=brew._id)

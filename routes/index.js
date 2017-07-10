@@ -12,11 +12,25 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Jason\'s Magical Brewing Land' });
 });
 
-router.route('/api/brews')
+router.route('/api/currentbrew')
   .get(function(req, res, next) {
     MongoClient.connect(url, function(err, db){
       db.collection('brews')
       .find({ complete: false })
+      .toArray(function(err, docs) {
+        assert.equal(err, null);
+        console.log("Found the following records");
+        console.dir(docs)
+        res.json(docs);
+      });      
+    });
+  });
+
+router.route('/api/brews')
+  .get(function(req, res, next) {
+    MongoClient.connect(url, function(err, db){
+      db.collection('brews')
+      .find({})
       .toArray(function(err, docs) {
         assert.equal(err, null);
         console.log("Found the following records");

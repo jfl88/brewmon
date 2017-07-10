@@ -3,9 +3,9 @@
 
     angular
         .module('brewtest', ['nvd3'])
-        .controller('homeCtrl', ['$scope','$interval', '$http',
-        function ($scope, $interval, $http) {
-            $http.get('/api/brews/?complete=false').then(function success(resp) {
+        .controller('homeCtrl', ['$scope', '$http',
+        function ($scope, $http) {
+            $http.get('/api/currentbrew').then(function success(resp) {
                 $scope.currentBrew = resp.data[0];
                 
                 $scope.brewData = [{
@@ -49,6 +49,45 @@
               $scope.liveTemp = data.temp;
             });
           });
+        }
+    ]);
+
+    angular
+        .module('brewtest')
+        .controller('historyCtrl', ['$scope', '$http',
+        function ($scope, $http) {
+            $http.get('/api/brews/').then(function success(resp) {
+                console.log(resp.data);
+                $scope.brews = resp.data;
+                $scope.brews.forEach(function (brew) {
+                    brew.graph = [{
+                        x: [],
+                        y: [],
+                        type: 'scatter'
+                    }];
+
+                    brew.layout = {
+                        showlegend: false,
+                        xaxis: { title: 'Date / Time' },
+                        yaxis: { title: 'Temperature (°C)', nticks: 10 },
+                        margin: {
+                            l: 50,
+                            r: 50,
+                            b: 50,
+                            t: 50,
+                            pad: 4
+                        }
+                    };
+
+                    brew.tempData.forEach(function(record) {
+                        brew.graph[0].x.push(new Date(record.timestamp));
+                        brew.graph[0].y.push(record.temp);
+                    });
+
+                    Plotly.newPlot(brew._id, brew.graph, brew.layout, { displaylogo: false });
+                });
+            });
+
         }
     ]);
 })();

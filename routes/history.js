@@ -12,6 +12,7 @@ router.get('/', function(req, res, next) {
   MongoClient.connect(url, function(err, db){
     db.collection('brews')
     .find(req.query)
+    .sort({ startDT: -1 })
     .toArray(function(err, docs) {
       assert.equal(err, null);
       console.log("Found the following records");
