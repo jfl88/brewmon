@@ -47,6 +47,9 @@
 
             $scope.$apply(function () {
               $scope.liveTemp = data.temp;
+              // for now update the 24 hour graph every time receiving a new 'live' temp
+              // put this in the new 'recordTemp' socket message once that's setup
+              Plotly.extendTraces('brewGraph', { y: [[ data.temp ]], x: [[ new Date(data.timestamp) ]] }, [0]);
             });
           });
         }
