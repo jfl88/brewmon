@@ -1,0 +1,39 @@
+extends layout
+
+block content
+  div
+    .row
+      .col-md-12
+        h2=title
+        hr
+    .row
+      .col-sm-12
+        .panel.panel-default
+          .panel-heading
+            label Edit Brew
+          .panel-body
+            form.form-horizontal(action='/control/brew/' + brew._id, method='post')
+              input(type='hidden', name='_id', value=brew._id)
+              .form-group
+                label.control-label.col-sm-2 Brew Name:
+                .col-sm-10
+                  input.form-control(type='text', name='name', value=brew.name)
+              .form-group
+                label.control-label.col-sm-2 Recipe Url:
+                .col-sm-10
+                  input.form-control(type='text', name='recipeUrl', value=brew.recipeUrl)
+              .form-group
+                label.control-label.col-sm-2 Brew Start:
+                .col-sm-10
+                  input.form-control(type='text', name='startDT', value=brew.startDT)
+              .form-group
+                label.control-label.col-sm-2 Brew Finish:
+                .col-sm-10
+                  input.form-control(type='text', name='finishDT', value=brew.finishDT)
+              .form-group
+                label.control-label.col-sm-2 Complete:
+                .col-sm-10
+                  input.form-control(type='checkbox', name='complete', checked=brew.complete)
+              .form-group
+                .col-sm-offset-2.col-sm-10
+                  input.form-control(type='submit', value='Edit Brew')
