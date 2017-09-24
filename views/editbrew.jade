@@ -6,6 +6,10 @@ block content
       .col-md-12
         h2=title
         hr
+    if update    
+      .row
+        .col-sm-12.alert.alert-success
+          p Successfully updated #{brew.name}!
     .row
       .col-sm-12
         .panel.panel-default
@@ -13,7 +17,6 @@ block content
             label Edit Brew
           .panel-body
             form.form-horizontal(action='/control/brew/' + brew._id, method='post')
-              input(type='hidden', name='_id', value=brew._id)
               .form-group
                 label.control-label.col-sm-2 Brew Name:
                 .col-sm-10
@@ -34,6 +37,10 @@ block content
                 label.control-label.col-sm-2 Complete:
                 .col-sm-10
                   input.form-control(type='checkbox', name='complete', checked=brew.complete)
+              .form-group
+                label.control-label.col-sm-2 Temperature Data:
+                .col-sm-10
+                  p.form-control #{brew.tempData.length} record(s).
               .form-group
                 .col-sm-offset-2.col-sm-10
                   input.form-control(type='submit', value='Edit Brew')

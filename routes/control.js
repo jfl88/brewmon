@@ -17,9 +17,6 @@ var auth = function (req, res, next) {
 
   var user = basicAuth(req);
 
-  console.log(dblogin);
-  console.log(user);
-  
   if (!user || !user.name || !user.pass) {
     return unauthorized(res);
   };
@@ -40,10 +37,12 @@ router.get('/brewlist', auth, function(req, res, next) {
     .toArray(function(err, docs) {
       assert.equal(err, null);
       res.render('brewlist', { title: 'Jason\'s Magical Brewing Land - Brewing Control Centre', brews: docs });
+      db.close();
     });      
   });
 });
 
+/* GET Show brew details for edit */
 router.get('/brew/:brewid', auth, function(req, res, next) {
   console.log(req.params.brewid);
   MongoClient.connect(url, function(err, db){
@@ -51,13 +50,32 @@ router.get('/brew/:brewid', auth, function(req, res, next) {
     .findOne({ "_id": ObjectId(req.params.brewid)}, function(err, doc) {
       assert.equal(err, null);
       res.render('editbrew', { title: 'Jason\'s Magical Brewing Land - Brewing Control Centre', brew: doc });
+      db.close();
     });      
   });
 });
 
+/* POST Handle update data */
 router.post('/brew/:brewid', auth, function(req, res, next) {
   console.log(req.body);
-  res.send('Post page');
+  brewUpdate = { $set: {
+      name: req.body.name,
+      recipeUrl: req.body.recipeUrl,
+      complete: (req.body.complete === 'on'),
+      startDT: req.body.startDT,
+      finishDT: req.body.finishDT
+    } 
+  } 
+
+  MongoClient.connect(url, function(err, db){
+    db.collection('brews')
+    .findOneAndUpdate({ "_id": ObjectId(req.params.brewid)}, brewUpdate, { returnOriginal: false }, function(err, r){
+      assert.equal(null, err);
+
+      res.render('editbrew', { title: 'Jason\'s Magical Brewing Land - Brewing Control Centre', brew: r.value, update: true });
+      db.close();
+    });
+  });
 });
 
 module.exports = router;
