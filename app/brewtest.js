@@ -16,7 +16,7 @@
 
                 var layout = {
                     showlegend: false,
-                    xaxis: { title: 'Date / Time' },
+                    xaxis: { title: 'Date / Time', type: 'date' },
                     yaxis: { title: 'Temperature (°C)', nticks: 10 },
                     margin: {
                         l: 50,
@@ -71,7 +71,7 @@
 
                     brew.layout = {
                         showlegend: false,
-                        xaxis: { title: 'Date / Time' },
+                        xaxis: { title: 'Date / Time', type: 'date' },
                         yaxis: { title: 'Temperature (°C)', nticks: 10 },
                         margin: {
                             l: 50,

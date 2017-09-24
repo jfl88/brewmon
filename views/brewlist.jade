@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  div
+    .row
+      .col-md-12
+        h2=title
+        hr
+    for brew in brews    
+      .row(name=brew._id)
+        .col-sm-12
+          .panel.panel-default
+            .panel-heading
+              label #{brew.name}
+            .panel-body
+              p
+                label Recipe:&nbsp
+                a(href=brew.recipeUrl) #{brew.name}
+              p
+                label Stage:&nbsp
+                Fermentation (started #{brew.startDT})
+              p
+                a(href='/control/brew/' + brew._id) Edit Brew
