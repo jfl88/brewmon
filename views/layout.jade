@@ -26,6 +26,15 @@ html
               a(href='/history') Brew History
             li
               a(href='#contact') Contact
+          ul.nav.navbar-nav.navbar-right
+            li
+              a.dropdown-toggle(href='#', data-toggle='dropdown', role='button') Control
+                span.caret
+              ul.dropdown-menu
+                li
+                  a(href='/control/new') New Brew
+                li
+                  a(href='/control/brewlist') Brews
     .container
       block content
     .container
