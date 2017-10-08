@@ -5,6 +5,8 @@ block content
     .row
       .col-md-12
         h2=title
+          span.pull-right
+            a(href='/control/brew/') New Brew
         hr
     for brew in brews    
       .row(name=brew._id)
@@ -12,6 +14,8 @@ block content
           .panel.panel-default
             .panel-heading
               label #{brew.name}
+              span.pull-right
+                a(href='/control/brew/' + brew._id) Edit Brew
             .panel-body
               p
                 label Recipe:&nbsp

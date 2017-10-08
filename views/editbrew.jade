@@ -16,7 +16,7 @@ block content
           .panel-heading
             label Edit Brew
           .panel-body
-            form.form-horizontal(action='/control/brew/' + brew._id, method='post')
+            form.form-horizontal(action='/control/brew/' + (brew._id ? brew._id : ''), method='post')
               .form-group
                 label.control-label.col-sm-2 Brew Name:
                 .col-sm-10
@@ -43,4 +43,34 @@ block content
                   p.form-control #{brew.tempData.length} record(s).
               .form-group
                 .col-sm-offset-2.col-sm-10
-                  input.form-control(type='submit', value='Edit Brew')
+                  if brew._id
+                    input.form-control(type='submit', value='Edit Brew')
+                  else
+                    input.form-control(type='submit', value='Create Brew')
+          .panel-body
+            form.form-horizontal
+              .form-group
+                  label.control-label.col-sm-2 Timestamp:
+                  .col-sm-10
+                    p.form-control 2018-09-24T08:00:00-08:00
+              .form-group
+                label.control-label.col-sm-2 Step:
+                .col-sm-10
+                  select.form-control(name='step', value='')
+                    option Mash Complete
+                    option Boil Complete
+                    option Added to Fermenter
+                    option Sample
+                    option Fermentation Complete
+              .form-group
+                label.control-label.col-sm-2 SG Reading:
+                .col-sm-10
+                  input.form-control(type='text', name='sg')
+              .form-group
+                label.control-label.col-sm-2 Volume:
+                .col-sm-10
+                  input.form-control(type='text', name='vol')
+              .form-group
+                label.control-label.col-sm-2 Notes:
+                .col-sm-10
+                  textarea(cols=30, rows=5)
