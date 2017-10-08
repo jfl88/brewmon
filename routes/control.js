@@ -41,6 +41,20 @@ router.get('/brew/:brewid', auth, function(req, res, next) {
   });
 });
 
+/* GET Show brew details for edit */
+router.get('/brew', auth, function(req, res, next) {
+  console.log(req.params.brewid);
+  var newBrew = {
+    name : '',
+    recipeUrl : '',
+    tempData : [],
+    complete : false,
+    startDT : '',
+    finishDT : ''
+  }
+  res.render('editbrew', { title: 'Jason\'s Magical Brewing Land - Brewing Control Centre', brew: newBrew });
+});
+
 /* POST Handle update data */
 router.post('/brew/:brewid', auth, function(req, res, next) {
   console.log(req.body);
@@ -59,6 +73,29 @@ router.post('/brew/:brewid', auth, function(req, res, next) {
       assert.equal(null, err);
 
       res.render('editbrew', { title: 'Jason\'s Magical Brewing Land - Brewing Control Centre', brew: r.value, update: true });
+      db.close();
+    });
+  });
+});
+
+/* POST Handle update data */
+router.post('/brew/', auth, function(req, res, next) {
+  console.log(req.body);
+  var newBrew = { 
+    name: req.body.name,
+    recipeUrl: req.body.recipeUrl,
+    complete: (req.body.complete === 'on'),
+    startDT: req.body.startDT,
+    finishDT: req.body.finishDT,
+    tempData: []
+  } 
+
+  MongoClient.connect(url, function(err, db){
+    db.collection('brews')
+    .insertOne(newBrew, function(err, r){
+      assert.equal(null, err);
+
+      res.render('editbrew', { title: 'Jason\'s Magical Brewing Land - Brewing Control Centre', brew: newBrew._id, update: true });
       db.close();
     });
   });
