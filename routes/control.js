@@ -28,20 +28,6 @@ var auth = function (req, res, next) {
   };
 };
 
-/* GET list page. */
-router.get('/brewlist', auth, function(req, res, next) {
-  MongoClient.connect(url, function(err, db){
-    db.collection('brews')
-    .find(req.query)
-    .sort({ startDT: -1 })
-    .toArray(function(err, docs) {
-      assert.equal(err, null);
-      res.render('brewlist', { title: 'Jason\'s Magical Brewing Land - Brewing Control Centre', brews: docs });
-      db.close();
-    });      
-  });
-});
-
 /* GET Show brew details for edit */
 router.get('/brew/:brewid', auth, function(req, res, next) {
   console.log(req.params.brewid);
@@ -77,5 +63,16 @@ router.post('/brew/:brewid', auth, function(req, res, next) {
     });
   });
 });
+
+// example 'inserting' a subdocument
+// use this for the annotations
+//
+// db.posts.update({ _id: ObjectId( "510a3c5382d395b70b000034" ) },
+// {
+//  $push: { comments: { "_id" : ObjectId( "..." ),
+//  "authorId" : ObjectId( "..." ),
+//  "content" : "",
+//  "createdAt" : Date(...) } }
+// })
 
 module.exports = router;
