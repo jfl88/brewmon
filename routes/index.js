@@ -26,6 +26,26 @@ router.route('/api/currentbrew')
     });
   });
 
+router.route('/api/gettemps')
+.get(function(req, res, next) {
+  yesterday = new Date(new Date().getTime() - (24 * 60 * 60 * 1000));
+
+  MongoClient.connect(url, function(err, db){
+    db.collection('temps')
+    .find({
+      timestamp: {
+        $gte: yesterday
+      }
+    })
+    .toArray(function(err, docs) {
+      assert.equal(err, null);
+      console.log("Found the following records");
+      console.dir(docs)
+      res.json(docs);
+    });      
+  });
+});
+
 router.route('/api/brews')
   .get(function(req, res, next) {
     MongoClient.connect(url, function(err, db){
