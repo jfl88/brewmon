@@ -7,13 +7,17 @@
         function ($scope, $http) {
             $http.get('/api/currentbrew').then(function success(resp) {
                 $scope.currentBrew = resp.data[0];
-                
+            });
+
+            $http.get('/api/gettemps').then(function success(resp) {
+                $scope.temps = resp.data
+
                 $scope.brewData = [{
                     x: [],
                     y: [],
                     type: 'scatter'
                 }];
-
+    
                 var layout = {
                     showlegend: false,
                     xaxis: { title: 'Date / Time', type: 'date' },
@@ -26,8 +30,8 @@
                         pad: 4
                     }
                 };
-
-                $scope.currentBrew.tempData.forEach(function(record) {
+    
+                $scope.temps.forEach(function(record) {
                     if (new Date(record.timestamp) > new Date(new Date().getTime() - (24 * 60 * 60 * 1000))) {
                         $scope.brewData[0].x.push(new Date(record.timestamp));
                         $scope.brewData[0].y.push(record.temp);
