@@ -9,7 +9,7 @@ var url = 'mongodb://' + dblogin.user + ':' + dblogin.pw + '@' + dblogin.addr;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Magical Brewing Land' });
+  res.render('index', { title: 'Bellthorpe Brewing' });
 });
 
 router.route('/api/currentbrew')

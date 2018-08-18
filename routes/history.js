@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
       assert.equal(err, null);
       console.log("Found the following records");
       console.dir(docs)
-      res.render('history', { title: 'Jason\'s Magical Brewing Land - Brew History', brews: docs });
+      res.render('history', { title: 'Bellthorpe Brewing - Brew History', brews: docs });
     });      
   });
 });
